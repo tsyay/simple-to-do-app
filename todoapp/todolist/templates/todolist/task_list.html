@@ -1,0 +1,31 @@
+
+{% if request.user.is_authenticated %}
+    <p>{{ request.user }}</p>
+    <a href= "{% url 'logout'%}" >Выйти</a> 
+{% else %}
+    <a href= "{% url 'login'%}" >Войти</a>     
+    <a href= "" >Зарегистрироваться</a> 
+{%endif%}
+
+<hr>
+<h1> To Do List {{color}}</h1>
+<a href= "{% url 'task-create' %}" >Добавить задачу</a> 
+
+<table>
+    <tr>
+        <th> Item </th>
+        <th></th>
+
+    </tr>
+    {% for task in tasks  %} 
+    <tr>
+        <th> {{task.title }} </th>
+        <th> <a href= "{% url 'task' task.id %}" >Просмотр задачи</a></th>
+        <th> <a href= "{% url 'task-update' task.id %}" >Изменить задачу</a></th>
+        <th> <a href= "{% url 'task-delete' task.id %}" >Удалить задачу</a></th>
+    </tr>
+    {% empty %}
+        <h3>Нет дел в списке дел!</h3>
+    {% endfor %}
+</table>
+
